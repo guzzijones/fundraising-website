@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block head %}
-<title>Triple Crown for Heart Fundraising</title>
+<title>{{campaing.name}}</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 {% endblock head %}
 
@@ -19,7 +19,10 @@
     <div class="col-lg-6">
       <br/>
       <h3>{{ campaign.name }}</h3>
-      <img src="{% static "homepage.jpg" %}" width="100%">
+	{% if campaign.photo %}
+          <img src="{{campaign.photo.url}}" alt="Card image cap" width="100%">
+	{% endif %}
+        
       <div id="countdown-wrap">
         <div id="goal-stat">
           <div id="raised"><strong>${{ total_raised|floatformat:"0"|intcomma }}</strong></div>

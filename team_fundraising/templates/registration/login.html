@@ -8,8 +8,10 @@
 {% block body %}
     <nav class="navbar navbar-expand navbar-light bg-light">
         <a class="navbar-brand" href="#">
+	{% if campaign.thumbnail %}
                 <img src="{% static "tc4h_logo.png" %}" width="40" height="40" class="d-inline-block align-top" alt="">
         </a>
+        {% endif %}
         Login
     </nav>
     <div class="container">

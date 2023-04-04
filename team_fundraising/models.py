@@ -23,6 +23,7 @@ class Campaign(models.Model):
     campaign_message = models.TextField()
     default_fundraiser_message = models.TextField()
     default_fundraiser_amount = models.IntegerField(default=0)
+    photo = models.ImageField(upload_to='campaignphotos/', blank=True)
 
     def __str__(self):
         return self.name
