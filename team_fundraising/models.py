@@ -24,6 +24,7 @@ class Campaign(models.Model):
     default_fundraiser_message = models.TextField()
     default_fundraiser_amount = models.IntegerField(default=0)
     photo = models.ImageField(upload_to='campaignphotos/', blank=True)
+    thumbnail = models.ImageField(upload_to='campaignphotos/', blank=True)
 
     def __str__(self):
         return self.name
@@ -130,7 +131,6 @@ class Fundraiser(models.Model):
         """
         Get the sum of Donations for this Fundraiser
         """
-
         # get all paid donations for this fundraiser
         donations = Donation.objects.filter(
             fundraiser__pk=self.id,

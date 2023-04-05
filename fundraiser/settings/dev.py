@@ -35,3 +35,6 @@ EMAIL_USE_TLS = True
 
 PAYPAL_TEST = read_boolean(os.getenv('PAYPAL_TEST'))
 PAYPAL_ACCOUNT = os.getenv('PAYPAL_ACCOUNT')
+
+BUSINESS_NAME = os.getenv("BUSINESS_NAME")
+CURRENCY_CODE = os.getenv("CURRENCY_CODE")

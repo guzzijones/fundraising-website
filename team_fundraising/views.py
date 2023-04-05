@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.http import HttpResponse
 from django.views import View
 from paypal.standard.forms import PayPalPaymentsForm
 
@@ -79,7 +80,6 @@ def new_donation(request, fundraiser_id):
 
     fundraiser = get_object_or_404(Fundraiser, pk=fundraiser_id)
     campaign = Campaign.objects.filter(fundraiser=fundraiser_id).first()
-
     if request.method == "POST":
 
         form = DonationForm(request.POST)
@@ -105,12 +105,12 @@ def new_donation(request, fundraiser_id):
             donation.save()
 
             paypal_dict = {
-                "bn": "TripleCrown_Donate_WPS_CA",
+                "bn": settings.BUSINESS_NAME,
                 "business": settings.PAYPAL_ACCOUNT,
                 "amount": donation.amount,
-                "currency_code": "CAD",
+                "currency_code": settings.CURRENCY_CODE,
                 "item_name": "Donation",
-                "invoice": "TRIPLE_CROWN_"+str(donation.id),
+                "invoice": settings.BUSINESS_NAME + str(donation.id),
                 "notify_url": request.build_absolute_uri(
                     reverse('team_fundraising:paypal-ipn')
                     ),
@@ -130,7 +130,6 @@ def new_donation(request, fundraiser_id):
             # create the instance
             form = PayPalPaymentsForm(
                 initial=paypal_dict, button_type="donate")
-
             context = {
                 "form": form,
                 'donation': donation,
@@ -145,7 +144,7 @@ def new_donation(request, fundraiser_id):
                 Donation_text.thank_you
             )
 
-            return render(request, template_name, context)
+            return HttpResponse(render(request, template_name, context), status=201)
 
     else:
 

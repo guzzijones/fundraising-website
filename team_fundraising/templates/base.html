@@ -5,7 +5,7 @@
         <nav class="navbar navbar-expand navbar-light bg-light">
 	{% if campaign.thumbnail %}
             <a class="navbar-brand" href="#">
-                <img src="{% static "tc4h_logo.png" %}" width="40" height="40" class="d-inline-block align-top" alt="">
+              <img src="{{campaign.thumbnail}}" width="40" height="40" class="d-inline-block align-top" alt="">
             </a>
         {% endif %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

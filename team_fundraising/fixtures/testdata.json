@@ -694,5 +694,18 @@
             "photo": "",
             "message": "Welcome to my fundraising page!<br><br>This is the default message that new fundraisers will see when they sign up to fundraise.<br><br>It is helpful to create a starting message for people that describes what event they are doing and what they are fundraising for. You can customize this default message by going to the <a href=\"/admin\">admin</a> section and logging in with your superuser account and editing the \"Campaign\".<br><br>If you would like to delete this user, you can do it through the <a href=\"/admin/\">admin </a>console."
         }
+    },
+    {
+        "model": "team_fundraising.fundraiser",
+        "pk": 2,
+        "fields": {
+            "campaign": 1,
+            "user": 2,
+            "name": "Empty Fundraiser",
+            "goal": 100,
+            "photo": "",
+            "message": "Welcome to my fundraising page!<br><br>This is the default message that new fundraisers will see when they sign up to fundraise.<br><br>It is helpful to create a starting message for people that describes what event they are doing and what they are fundraising for. You can customize this default message by going to the <a href=\"/admin\">admin</a> section and logging in with your superuser account and editing the \"Campaign\".<br><br>If you would like to delete this user, you can do it through the <a href=\"/admin/\">admin </a>console."
+        }
     }
+
 ]
