@@ -1,3 +1,5 @@
+[![Django CI](https://github.com/guzzijones/fundraising-website/actions/workflows/django.yml/badge.svg)](https://github.com/guzzijones/fundraising-website/actions/workflows/django.yml)
+
 # Event Fundraising Website
 
 An event fundraising website where individuals can create personal pages, set goals and raise money for the overall goal.
