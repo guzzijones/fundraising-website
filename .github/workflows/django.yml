@@ -56,4 +56,5 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          python manage.py test
+          cp .env.example .env
+          SECRET_KEY="xxxxxxxx" python manage.py test
