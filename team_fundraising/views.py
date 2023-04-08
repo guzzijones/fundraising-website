@@ -161,41 +161,6 @@ def new_donation(request, fundraiser_id):
     return render(request, template, context)
 
 
-class Paypal_donation(View):
-    # initial test of the paypal donation - no longer used
-
-    template_name = 'team_fundraising/paypal_donation.html'
-
-    def get(self, request, fundraiser_id):
-
-        paypal_dict = {
-            "bn": "TripleCrown_Donate_WPS_CA",
-            "business": settings.PAYPAL_ACCOUNT,
-            "amount": "50.00",
-            "currency_code": "CAD",
-            "item_name": "Donation",
-            "invoice": "unique-invoice-id",
-            "notify_url": request.build_absolute_uri(
-                reverse('team_fundraising:paypal-ipn')
-                ),
-            "return": request.build_absolute_uri(
-                reverse('team_fundraising:fundraiser', args=[fundraiser_id])
-                ),
-            "cancel_return": request.build_absolute_uri(
-                reverse('team_fundraising:fundraiser', args=[fundraiser_id])
-                ),
-            "custom": fundraiser_id,
-        }
-
-        # create the instance
-        form = PayPalPaymentsForm(initial=paypal_dict, button_type="donate")
-        context = {
-            "form": form
-            }
-
-        return render(request, self.template_name, context)
-
-
 def signup(request, campaign_id):
     # Create both a fundraiser and a user, tied together through a foreign key
 
@@ -261,6 +226,7 @@ def signup(request, campaign_id):
         if fundraiser_form.is_valid():
 
             fundraiser = fundraiser_form.save()
+            campaign = get_object_or_404(Campaign, pk=campaign_id)
 
             # tie this user to the fundraiser and save the model again
             fundraiser.user = user
@@ -268,16 +234,16 @@ def signup(request, campaign_id):
 
             # send them an email that they have successfully signed up
             send_mail(
-                Fundraiser_text.signup_email_subject,
-                Fundraiser_text.signup_email_opening
+                fundraiser.signup_email_subject,
+                fundraiser.signup_email_opening
                 + request.build_absolute_uri(
                     reverse(
                         'team_fundraising:fundraiser', args=[fundraiser.id]
                     )
                 )
                 + "\n\nYour username is: " + user.username
-                + Fundraiser_text.signup_email_closing,
-                'fundraising@triplecrownforheart.ca',
+                + fundraiser.signup_email_closing,
+                campaign.email,
                 [user.email, ],
                 auth_user=settings.EMAIL_HOST_USER,
                 auth_password=settings.EMAIL_HOST_PASSWORD
@@ -408,7 +374,7 @@ def update_fundraiser(request, campaign_id=None):
             # if not, get a fundraiser for any campaign
             fundraiser = Fundraiser.objects.filter(
                 user=request.user.id,
-            )[0]
+            ).first()
 
     if request.method == 'POST':
 
