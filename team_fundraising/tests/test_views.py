@@ -2,6 +2,9 @@ from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils import timezone
 from unittest.mock import patch
+from django.contrib import messages
+from django.contrib.messages import get_messages
+from team_fundraising.text import Donation_text, Fundraiser_text
 
 
 
@@ -109,6 +112,10 @@ class SignUpViewTests(TestCase):
                 'signup_email_opening': "test opening"
                 }
         response = self.client.post(reverse('team_fundraising:signup', args='1'), data)
+        messages = get_messages(response.wsgi_request)
+        self.assertEqual(messages._queued_messages[0].message,
+            Fundraiser_text.signup_return_message
+                )
         self.assertEqual(response.status_code, 302)
 
 
@@ -164,7 +171,7 @@ class FundraiserViewTests(TestCase):
 class DonationTest(TestCase):
     fixtures = ["testdata.json"]
     def test_new_donation(self):
-        data={
+        data = {
             "name": "julio jones",
             "amount": "100",
             "other_amount":"10",
@@ -180,12 +187,10 @@ class DonationTest(TestCase):
             "date": timezone.now()
             }
         response = self.client.post(
-                reverse('team_fundraising:donation', args='1'),
-                data
-            
+            reverse('team_fundraising:donation', args='1'),
+            data
             )
         self.assertEqual(response.status_code, 201)
-
 
 class FundraiserViewTests(TestCase):
     """ Check the information on the fundraiser page """
