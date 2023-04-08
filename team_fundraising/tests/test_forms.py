@@ -66,6 +66,9 @@ class FundraiserFormTest(TestModels):
                 'username': 'username',
                 'password1': 'j234rlj33s',
                 'password2': 'j234rlj33s',
+                'signup_email_closing': "test close",
+                'signup_email_subject': "test subject",
+                'signup_email_opening': "test opening"
             }
         )
         self.assertTrue(form.is_valid())

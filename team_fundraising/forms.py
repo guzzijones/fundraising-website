@@ -113,6 +113,9 @@ class FundraiserForm(forms.ModelForm):
 
         self.fields['name'].required = True
         self.fields['goal'].required = True
+        self.fields['signup_email_subject'].required = True
+        self.fields['signup_email_closing'].required = True
+        self.fields['signup_email_opening'].required = True
 
         # disable all the fields if the campaign is no longer active
         if self.instance.pk is not None:

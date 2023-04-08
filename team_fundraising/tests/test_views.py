@@ -1,6 +1,7 @@
 from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils import timezone
+from unittest.mock import patch
 
 
 
@@ -88,6 +89,27 @@ class DonationTest(TestCase):
             
             )
         self.assertEqual(response.status_code, 201)
+
+class SignUpViewTests(TestCase):
+    fixtures = ["testdata.json"]
+    
+    @patch('team_fundraising.views.send_mail')
+    def test_signup_new_user_existing_campaign_new_fundraiser(self, mock_send_mail):
+        data = {
+                "email": "test@test.com",
+                "username": "testuser1",
+                "password1": "somePASSw12@",
+                "password2": "somePASSw12@",
+                "campaign": 1,
+                'name': "test",
+                'goal': 100, 
+                'message': "test message",
+                'signup_email_closing': "test close",
+                'signup_email_subject': "test subject",
+                'signup_email_opening': "test opening"
+                }
+        response = self.client.post(reverse('team_fundraising:signup', args='1'), data)
+        self.assertEqual(response.status_code, 302)
 
 
 class FundraiserViewTests(TestCase):
