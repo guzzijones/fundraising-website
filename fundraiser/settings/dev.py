@@ -33,8 +33,8 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 
-PAYPAL_TEST = read_boolean(os.getenv('PAYPAL_TEST'))
-PAYPAL_ACCOUNT = os.getenv('PAYPAL_ACCOUNT')
+PAYPAL_TEST = read_boolean(os.environ.get('PAYPAL_TEST', "TRUE"))
+PAYPAL_ACCOUNT = os.environ.get('PAYPAL_ACCOUNT', "TESTING_DONATE")
 
 BUSINESS_NAME = os.getenv("BUSINESS_NAME")
 CURRENCY_CODE = os.getenv("CURRENCY_CODE")

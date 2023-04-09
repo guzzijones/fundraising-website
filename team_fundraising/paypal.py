@@ -4,7 +4,9 @@ from django.shortcuts import get_object_or_404
 from django.conf import settings
 from .models import Donation
 from .text import Donation_text
+import logging
 
+LOG = logging.getLogger(__name__)
 
 def process_paypal(sender, **kwargs):
     """
@@ -14,22 +16,21 @@ def process_paypal(sender, **kwargs):
     sender.custom is the donation id
     """
     ipn_obj = sender
-    print("received the paypal signal...")
-    print('ipn_obj.payment_status = ' + str(ipn_obj.payment_status))
-
+    LOG.info("received the paypal signal...")
+    LOG.info('ipn_obj.payment_status = ' + str(ipn_obj.payment_status))
     if ipn_obj.payment_status == ST_PP_COMPLETED:
         # Check that the receiver email is the same we previously
         # set on the `business` field. (The user could tamper with
         # that fields on the payment form before it goes to PayPal)
         if ipn_obj.receiver_email != settings.PAYPAL_ACCOUNT:
             # Not a valid payment
-            print('not a valid payment.')
+            LOG.error('not a valid payment.' + str(ipn_obj.payment_status))
             return
 
         # ALSO: for the same reason, you need to check the amount
         # received, `custom` etc. are all what you expect or what
         # is allowed.
-        print('ipn_obj.custom (donation)= ' + str(ipn_obj.custom))
+        LOG.info('ipn_obj.custom (donation)= ' + str(ipn_obj.custom))
 
         donation = get_object_or_404(Donation, pk=ipn_obj.custom)
 
@@ -67,9 +68,9 @@ def process_paypal(sender, **kwargs):
             + donation.name + " <" + donation.email + ">"
             + ' with the message:\n\n"' + donation.message + '"'
             + Donation_text.notification_email_closing,
-            'fundraising@triplecrownforheart.ca',
+			donation.fundraiser.campaign.email,
             [donation.fundraiser.user.email, ]
         )
 
     else:
-        print('not completed')
+    	LOG.error('not completed; ipn_obj.payment_status = ' + str(ipn_obj.payment_status))

@@ -11,7 +11,7 @@
     },
     {
         "model": "team_fundraising.donation",
-        "pk": 2,
+        "pk": 1,
         "fields": {
             "fundraiser": 1,
             "name": "First Donation",

@@ -153,3 +153,18 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': get_env_variable("LOG_LEVEL"),
+    },
+}
+
