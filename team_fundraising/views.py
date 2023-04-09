@@ -168,7 +168,6 @@ def signup(request, campaign_id):
 
         fundraiser_form = FundraiserForm(request.POST, request.FILES)
         user_form = SignUpForm(request.POST)
-
         # if you are adding a fundraiser to an existing user
         if User.objects.filter(username=request.POST['username']).exists():
 
@@ -211,14 +210,13 @@ def signup(request, campaign_id):
 
                     campaign = get_object_or_404(Campaign, pk=campaign_id)
 
-                    return render(request, 'registration/signup.html', {
+                    return HttpResponse(render(request, 'registration/signup.html', {
                         'campaign': campaign,
                         'user_form': user_form,
                         'fundraiser_form': fundraiser_form,
-                    })
+                    }), status=400)
 
         else:  # new user
-
             if user_form.is_valid() and fundraiser_form.is_valid():
 
                 user = user_form.save()
@@ -249,7 +247,6 @@ def signup(request, campaign_id):
                 auth_password=settings.EMAIL_HOST_PASSWORD
             )
         else:  # not a valid fundraiser form
-
             messages.error(
                 request,
                 "Something went wrong. Please try again.",
@@ -258,11 +255,11 @@ def signup(request, campaign_id):
 
             campaign = get_object_or_404(Campaign, pk=campaign_id)
 
-            return render(request, 'registration/signup.html', {
+            return HttpResponse(render(request, 'registration/signup.html', {
                 'campaign': campaign,
                 'user_form': user_form,
                 'fundraiser_form': fundraiser_form,
-            })
+            }), status=400)
 
         if not request.user.is_authenticated:
             # log in the user so they don't have to do it now

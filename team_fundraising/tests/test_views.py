@@ -95,7 +95,31 @@ class DonationTest(TestCase):
 
 class SignUpViewTests(TestCase):
     fixtures = ["testdata.json"]
-    
+
+    @patch('team_fundraising.views.send_mail')
+    def test_signup_new_user_invalid(self, mock_send_mail):
+        data = {
+                "email": "test@test.com",
+                "username": "testuser1",
+                "password1": "somePASSw12@",
+                "password2": "somePASSw12@",
+                "campaign": 1,
+                'name': "",
+                'goal': 100, 
+                'message': "test message",
+                'signup_email_closing': "test close",
+                'signup_email_subject': "test subject",
+                'signup_email_opening': "test opening"
+                }
+        response = self.client.post(reverse('team_fundraising:signup', args='1'), data)
+        messages = get_messages(response.wsgi_request)
+        self.assertEqual(messages._loaded_data[0].message,
+            "Something went wrong. Please try again."
+                )
+        self.assertEqual(response.status_code, 400)
+
+
+   
     @patch('team_fundraising.views.send_mail')
     def test_signup_new_user_existing_campaign_new_fundraiser(self, mock_send_mail):
         data = {
@@ -117,7 +141,48 @@ class SignUpViewTests(TestCase):
             Fundraiser_text.signup_return_message
                 )
         self.assertEqual(response.status_code, 302)
+        # test signed in user and existing fundraiser
+        data = {
+                "email": "test@test.com",
+                "username": "testuser1",
+                "campaign": 1,
+                'name': "test2",
+                'goal': 100, 
+                'message': "test message",
+                'signup_email_closing': "test close",
+                'signup_email_subject': "test subject",
+                'signup_email_opening': "test opening"
+                }
+        response = self.client.post(reverse('team_fundraising:signup', args='1'), data)
+        messages = get_messages(response.wsgi_request)
+        self.assertEqual(response.url,
+                '/team_fundraising/accounts/update_fundraiser/'
+                )
+        self.assertEqual(response.status_code, 302)
 
+        #signout
+        response = self.client.get(reverse('team_fundraising:logout',)+'?next='+reverse('team_fundraising:index', args='1'))
+        # sign in with wrong password
+        data = {
+                "email": "test@test.com",
+                "username": "testuser1",
+                "password1": "wrong",
+                "password2": "wrong",
+                "campaign": 1,
+                'name': "test",
+                'goal': 100, 
+                'message': "test message",
+                'signup_email_closing': "test close",
+                'signup_email_subject': "test subject",
+                'signup_email_opening': "test opening"
+                }
+        response = self.client.post(reverse('team_fundraising:signup', args='1'), data)
+        messages = get_messages(response.wsgi_request)
+        self.assertEqual(messages._loaded_messages[1].message,
+            Fundraiser_text.signup_wrong_password_existing_user,
+                )
+        self.assertEqual(response.status_code, 400)
+ 
 
 class FundraiserViewTests(TestCase):
     """ Check the information on the fundraiser page """
