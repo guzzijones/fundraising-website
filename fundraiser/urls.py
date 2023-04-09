@@ -23,7 +23,7 @@ from team_fundraising.admin import DonorCsv
 
 
 urlpatterns = [
-    path('', IndexView.as_view()),
+    path('', IndexView.as_view(), name='index_main'),
     path('team_fundraising/', include('team_fundraising.urls')),
 
     # Donation reports in the admin section
