@@ -176,3 +176,6 @@ EMAIL_USE_TLS = True
 EMAIL_TIMEOUT = os.environ.get('EMAIL_TIMEOUT', 25)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL','root@localhost')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'root@localhost')
+
