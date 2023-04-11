@@ -26,6 +26,8 @@ class Campaign(models.Model):
     photo = models.ImageField(upload_to='campaignphotos/', blank=True)
     thumbnail = models.ImageField(upload_to='campaignphotos/', blank=True)
     email = models.EmailField(blank=True)
+    about_title = models.TextField(blank=True)
+    about_details = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
