@@ -55,7 +55,7 @@ def process_paypal(sender, **kwargs):
         send_mail(
             Donation_text.confirmation_email_subject,
             thank_you_email_text,
-            'fundraising@triplecrownforheart.ca',
+			donation.fundraiser.campaign.email,
             [donation.email, ],
             html_message=thank_you_email_html
         )
@@ -64,10 +64,10 @@ def process_paypal(sender, **kwargs):
         send_mail(
             Donation_text.notification_email_subject,
             Donation_text.notification_email_opening
-            + '${:,.2f}'.format(donation.amount) + ' from '
-            + donation.name + " <" + donation.email + ">"
-            + ' with the message:\n\n"' + donation.message + '"'
-            + Donation_text.notification_email_closing,
+                + '${:,.2f}'.format(donation.amount) + ' from '
+                + donation.name + " <" + donation.email + ">"
+                + ' with the message:\n\n"' + donation.message + '"'
+                + Donation_text.notification_email_closing,
 			donation.fundraiser.campaign.email,
             [donation.fundraiser.user.email, ]
         )

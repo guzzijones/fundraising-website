@@ -163,8 +163,16 @@ LOGGING = {
         },
     },
     'root': {
-        'handlers': ['console'],
-        'level': get_env_variable("LOG_LEVEL"),
+        'handlers': ['console',],
+        'level': os.environ.get("LOG_LEVEL", 'DEBUG').upper(),
     },
 }
+
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_TIMEOUT = os.environ.get('EMAIL_TIMEOUT', 25)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

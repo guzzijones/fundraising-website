@@ -1,3 +1,5 @@
+import os
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
@@ -15,7 +17,8 @@ from paypal.standard.forms import PayPalPaymentsForm
 from .models import Campaign, Fundraiser, Donation, ProxyUser
 from .forms import DonationForm, UserForm, FundraiserForm, SignUpForm
 from .text import Donation_text, Fundraiser_text
-
+import logging
+LOG = logging.getLogger(__name__)
 
 def index_view(request, campaign_id):
     # The home page, shows all fundraisers and total raised
@@ -48,7 +51,7 @@ def index_view_default(request):
 
     return index_view(request, campaign.id)
 
-
+@csrf_exempt
 def fundraiser_view(request, fundraiser_id):
     # An individual's fundraising page, including total and donations
 
@@ -105,7 +108,6 @@ def new_donation(request, fundraiser_id):
             donation.save()
 
             paypal_dict = {
-                "bn": settings.BUSINESS_NAME,
                 "business": settings.PAYPAL_ACCOUNT,
                 "amount": donation.amount,
                 "currency_code": settings.CURRENCY_CODE,
