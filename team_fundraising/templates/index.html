@@ -5,13 +5,11 @@
 {% block body %}
 <br/>
 <div class="container">
-    <h4>Click on a campaign to get started:</h4>
-    <br/>
     {% for campaign in active %}
     <div class="col-lg-8  mx-auto">
         <div class="card mb-3 text-center">
 	{% if campaign.photo %}
-          <img class="card-img-top" src="{{campaign.photo.url}}" alt="Card image cap">
+          <img class="camp-image" src="{{campaign.photo.url}}" alt="Card image cap">
 	{% endif %}
             <div class="card-body">
                 <h2 class="card-title"><a class="stretched-link" href="{% url 'team_fundraising:index' campaign.id %}">{{ campaign.name }}</a></h2>

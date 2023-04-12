@@ -69,7 +69,7 @@ def process_paypal(sender, **kwargs):
                 + ' with the message:\n\n"' + donation.message + '"'
                 + Donation_text.notification_email_closing,
 			donation.fundraiser.campaign.email,
-            [donation.fundraiser.user.email, ]
+            [donation.fundraiser.campaign.email, ]
         )
 
     else:

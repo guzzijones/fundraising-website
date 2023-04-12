@@ -1,12 +1,28 @@
 {% extends "base.html" %}
+{% load humanize %}
+{% load static %}
+
+
 {% block head %}
-<title>placeholder about title</title>
+
+<title>{{campaign.about_title}}</title>
+
 {% endblock head %}
 
 {% block content %}
+{% for message in messages %}
 
-<h3>placeholder about title</h3>
-<p>
-placeholder about message
-</p>
+    <div class="alert alert-primary" role="alert">
+        {{ message }}
+    </div>
+
+    {% endfor %}
+    <br/>
+
+	<h3>{{campaign.about_title}}</h3>
+    	<br/>
+	<p>
+	{{campaign.about_details}}
+	</p>
+ 
 {% endblock content %}
