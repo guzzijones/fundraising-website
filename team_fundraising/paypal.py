@@ -55,7 +55,7 @@ def process_paypal(sender, **kwargs):
         send_mail(
             Donation_text.confirmation_email_subject,
             thank_you_email_text,
-			donation.fundraiser.campaign.email,
+			None, # use default email address always
             [donation.email, ],
             html_message=thank_you_email_html
         )
@@ -68,7 +68,7 @@ def process_paypal(sender, **kwargs):
                 + donation.name + " <" + donation.email + ">"
                 + ' with the message:\n\n"' + donation.message + '"'
                 + Donation_text.notification_email_closing,
-			donation.fundraiser.campaign.email,
+			None, # use default email address always. 
             [donation.fundraiser.user.email, ]
         )
 
