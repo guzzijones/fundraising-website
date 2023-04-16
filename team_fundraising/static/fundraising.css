@@ -2,15 +2,37 @@
 h2 {
     text-align:center;
 }
+/* xs */
+.campaignimg {
+    width: 200px;
+    height: auto;
+}
+/* sm */
+@media (min-width: 768px) {
+    .campaignimg {
+        width: 300px;
+    }
+}
+/* md */
+@media (min-width: 992px) {
+    .campaignimg {
+        width: 400px;
+    }
+}
+/* lg */
+@media (min-width: 1200px) {
+    .camapaignimg {
+        width: 650px;
+    }
+}
 
-.camp-image {
+.circle-image-campaign{
     object-fit: cover;
     border-radius: 20%;
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    height: 300px;
 }
 
 .circle-image {
@@ -21,6 +43,7 @@ h2 {
     margin-right: auto;
     margin-top: 10px;
     width: 200px;
+    height: 200px
 }
 
 .circle-image-small {
@@ -31,6 +54,7 @@ h2 {
     margin-right: auto;
     margin-top: 10px;
     width: 140px;
+    height: 140px;
 }
 
 .donate-button {
