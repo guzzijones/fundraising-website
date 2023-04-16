@@ -4,7 +4,7 @@
         <!-- Image and text -->
         <nav class="navbar navbar-expand-md navbar-light bg-light">
 	{% if campaign.thumbnail %}
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'index_main'  %}">
               <img src="{{campaign.thumbnail.url}}"  height="40" class="d-inline-block align-top" alt="">
             </a>
         {% endif %}
@@ -13,7 +13,6 @@
         </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="{% url 'index_main'  %}">All Campaigns</a>
                 <a class="nav-item nav-link" href="{% url 'team_fundraising:index' campaign.id %}">Home</a>
                 <a class="nav-item nav-link" href="{% url 'team_fundraising:about' campaign.id %}">About</a>
 

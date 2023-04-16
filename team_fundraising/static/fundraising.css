@@ -1,16 +1,16 @@
 
-h2 {
+.campaign-title {
     text-align:center;
 }
 /* xs */
 .campaignimg {
-    width: 200px;
+    width: 250px;
     height: auto;
 }
 /* sm */
 @media (min-width: 768px) {
     .campaignimg {
-        width: 300px;
+        width: 400px;
     }
 }
 /* md */

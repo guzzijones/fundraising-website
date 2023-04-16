@@ -29,10 +29,10 @@
                 {% if fundraiser.photo %}
                     <img src="{{ fundraiser.photo.url }}"  class="campaignimg circle-image-campaign">
                 {% else %}
-                    <img  src="{% static "nophoto.png" %}" alt="Card image cap" width="200" height="200" class="circle-image">
+                    <img  src="{% static "nophoto.png" %}" alt="Card image cap" class="campaignimg circle-image-campaign">
                 {% endif %}
 
-                <h2>{{ fundraiser.name }}</h2>
+                <h2 class="campaign-title">{{ fundraiser.name }}</h2>
             </div>
             <div class="col-lg-6">
 
