@@ -339,12 +339,12 @@ class OneClickSignUp(View):
         )
 
         # send them to the update fundraiser page
-        return redirect('team_fundraising:update_fundraiser', campaign_id)
+        return redirect('team_fundraising:update_fundraiser', new_fundraiser.id)
 
 
 @login_required
 # @transaction_atomic
-def update_fundraiser(request, campaign_id=None):
+def update_fundraiser(request, fundraiser_id=None, ):
     """
     Update the fundraiser's information, along with the user values
     """
@@ -355,7 +355,7 @@ def update_fundraiser(request, campaign_id=None):
     latest_fundraiser = Fundraiser.get_latest_active_campaign(request.user.id)
 
     # if no campaign id is included, get the latest one by default
-    if (campaign_id is None):
+    if (fundraiser_id is None):
 
         fundraiser = latest_fundraiser
 
@@ -365,7 +365,7 @@ def update_fundraiser(request, campaign_id=None):
             # try to get the fundraiser for this campaign
             fundraiser = Fundraiser.objects.get(
                 user=request.user.id,
-                campaign_id=campaign_id,
+                id=fundraiser_id
             )
 
         except ObjectDoesNotExist:

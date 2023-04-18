@@ -21,7 +21,7 @@ urlpatterns = [
         name="update_fundraiser",
     ),
     path(
-        'accounts/update_fundraiser/<int:campaign_id>/',
+        'accounts/update_fundraiser/<int:fundraiser_id>/',
         views.update_fundraiser,
         name="update_fundraiser",
     ),
