@@ -343,6 +343,38 @@ class OneClickSignUp(View):
 
 
 @login_required
+def add_fundraiser(request):
+    fundraiser_form = FundraiserForm()
+    if request.method == 'POST':
+
+        fundraiser_form = FundraiserForm(
+            request.POST,
+            request.FILES,
+        )
+
+        if fundraiser_form.is_valid():
+
+            fundraiser_form.save()
+
+            messages.success(request, 'Your fundraiser was added')
+
+            return redirect(
+                'team_fundraising:fundraiser',
+                fundraiser_id=fundraiser_form.instance.pk,
+            )
+
+
+        
+
+    return render(
+        request, 'team_fundraising/add_fundraiser.html',
+        {
+            'fundraiser_form': fundraiser_form,
+        }
+    )
+
+
+@login_required
 # @transaction_atomic
 def update_fundraiser(request, fundraiser_id=None, ):
     """

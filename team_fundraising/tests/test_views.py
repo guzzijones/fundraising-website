@@ -159,6 +159,10 @@ class SignUpViewTests(TestCase):
                 '/team_fundraising/accounts/update_fundraiser/'
                 )
         self.assertEqual(response.status_code, 302)
+        
+        # todo(aj) test add another fundraiser
+
+        # todo(aj) test update a fundraiser
 
         #signout
         response = self.client.get(reverse('team_fundraising:logout',)+'?next='+reverse('team_fundraising:index', args='1'))

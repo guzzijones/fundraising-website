@@ -5,7 +5,7 @@
 /* xs */
 .campaignimg {
     width: 250px;
-    height: auto;
+    max-height: 650px;
 }
 /* sm */
 @media (min-width: 768px) {
