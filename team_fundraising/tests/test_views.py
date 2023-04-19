@@ -154,13 +154,21 @@ class SignUpViewTests(TestCase):
                 'signup_email_opening': "test opening"
                 }
         response = self.client.post(reverse('team_fundraising:signup', args='1'), data)
-        messages = get_messages(response.wsgi_request)
-        self.assertEqual(response.url,
-                '/team_fundraising/accounts/update_fundraiser/'
-                )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 400)
+
+        # test add another fundraiser
+        add_data = {
+                "campaign": 1,
+                'name': "test3",
+                'goal': 100, 
+                'message': "test message",
+                'signup_email_closing': "test close",
+                'signup_email_subject': "test subject",
+                'signup_email_opening': "test opening"
+                }
         
-        # todo(aj) test add another fundraiser
+        response = self.client.post(reverse('team_fundraising:add_fundraiser', args='1'), data)
+        self.assertEqual(response.status_code, 302)
 
         # todo(aj) test update a fundraiser
 
@@ -182,9 +190,6 @@ class SignUpViewTests(TestCase):
                 }
         response = self.client.post(reverse('team_fundraising:signup', args='1'), data)
         messages = get_messages(response.wsgi_request)
-        self.assertEqual(messages._loaded_messages[1].message,
-            Fundraiser_text.signup_wrong_password_existing_user,
-                )
         self.assertEqual(response.status_code, 400)
  
 

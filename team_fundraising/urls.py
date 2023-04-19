@@ -25,6 +25,12 @@ urlpatterns = [
         views.update_fundraiser,
         name="update_fundraiser",
     ),
+    path(
+        'accounts/add_fundraiser/<int:campaign_id>/',
+        views.add_fundraiser,
+        name="add_fundraiser",
+    ),
+ 
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/<int:campaign_id>/', views.signup, name="signup"),
     path(

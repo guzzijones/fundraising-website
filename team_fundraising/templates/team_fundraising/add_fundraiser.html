@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+<title>Add your fundraising page</title>
+<script src="//cdn.ckeditor.com/4.11.4/basic/ckeditor.js"></script>
+{% endblock head %}
+
+{% block content %}
+{% for message in messages %}
+
+    <div class="alert alert-primary" role="alert">
+        {{ message }}
+    </div>
+
+{% endfor %}
+<br/>
+<h3>{{ campaign.name }}</h3>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ fundraiser_form|crispy }}
+    <br/>
+  
+    {% if campaign.active %}  
+      <button class="btn btn-primary" type="submit"> Add </button>
+    {% endif %}
+
+    <script>
+        CKEDITOR.replace( 'message', {
+        height: 260,
+      /* Default CKEditor styles are included as well to avoid copying default styles. */
+      contentsCss: [
+        'http://cdn.ckeditor.com/4.11.4/full-all/contents.css',
+        '{% static "ck_editor_override.css  " %}'
+      ]
+    } );
+    </script>
+</form>
+
+{% endblock content %}

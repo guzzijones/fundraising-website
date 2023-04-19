@@ -172,51 +172,19 @@ def signup(request, campaign_id):
         user_form = SignUpForm(request.POST)
         # if you are adding a fundraiser to an existing user
         if User.objects.filter(username=request.POST['username']).exists():
-
-            if fundraiser_form.is_valid():
-
-                if request.user.is_authenticated:
-
-                    user = request.user
-
-                else:
-
-                    # check if the password is correct
-                    user = authenticate(
+            messages.error(
                         request,
-                        username=request.POST['username'],
-                        password=request.POST['password1']
-                    )
-
-                if user is not None:
-
-                    # check to see if there is already a fundraiser
-                    # in this campaign
-                    if Fundraiser.objects.filter(
-                        user=user.id,
-                        campaign=campaign_id,
-                    ).exists():
-
-                        login(request, user)
-
-                        # send them to the update fundraiser page
-                        return redirect('team_fundraising:update_fundraiser')
-
-                else:
-
-                    messages.error(
-                        request,
-                        Fundraiser_text.signup_wrong_password_existing_user,
+                        'User already exists',
                         extra_tags='safe',
                         )
 
-                    campaign = get_object_or_404(Campaign, pk=campaign_id)
+            campaign = get_object_or_404(Campaign, pk=campaign_id)
 
-                    return HttpResponse(render(request, 'registration/signup.html', {
+            return HttpResponse(render(request, 'registration/signup.html', {
                         'campaign': campaign,
                         'user_form': user_form,
                         'fundraiser_form': fundraiser_form,
-                    }), status=400)
+            }), status=400)
 
         else:  # new user
             if user_form.is_valid() and fundraiser_form.is_valid():
@@ -343,32 +311,44 @@ class OneClickSignUp(View):
 
 
 @login_required
-def add_fundraiser(request):
-    fundraiser_form = FundraiserForm()
+def add_fundraiser(request, campaign_id):
+    campaign = get_object_or_404(Campaign, pk=campaign_id)
     if request.method == 'POST':
-
         fundraiser_form = FundraiserForm(
             request.POST,
             request.FILES,
         )
-
         if fundraiser_form.is_valid():
+            fundraiser = fundraiser_form.save()
+            # tie this user to the fundraiser and save the model again
+            fundraiser.user = request.user
+            fundraiser.save()
 
-            fundraiser_form.save()
 
             messages.success(request, 'Your fundraiser was added')
-
             return redirect(
                 'team_fundraising:fundraiser',
                 fundraiser_id=fundraiser_form.instance.pk,
             )
+        else:
+            messages.error(
+                request,
+                "Something went wrong. Please try again.",
+                extra_tags='safe',
+                )
 
+            campaign = get_object_or_404(Campaign, pk=campaign_id)
 
-        
-
+            return HttpResponse(render(request, 'team_fundraising/add_fundraiser.html', {
+                'campaign': campaign,
+                'fundraiser_form': fundraiser_form,
+            }), status=400)
+    # GET
+    fundraiser_form = FundraiserForm()
     return render(
         request, 'team_fundraising/add_fundraiser.html',
         {
+            'campaign': campaign,
             'fundraiser_form': fundraiser_form,
         }
     )
