@@ -18,7 +18,6 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(",")
 # CSRF_COOKIE_SECURE = True
 # Paypal configuration
 # To switch to the sandbox account, set PAYPAL_TEST = True
-# and set PAYPAL_ACCOUNT to 'stephen-facilitator@triplecrownforheart.com'
 
 PAYPAL_TEST = read_boolean(os.environ.get('PAYPAL_TEST', "TRUE").upper())
 PAYPAL_ACCOUNT = os.getenv('PAYPAL_ACCOUNT')
