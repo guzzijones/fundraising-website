@@ -96,7 +96,7 @@ class FundraiserForm(forms.ModelForm):
     class Meta:
         model = Fundraiser
         fields = ('campaign', 'name', 'goal', 
-                'photo', 'message', 'active' )
+                'photo', 'message', 'active')
         widgets = {
             'campaign': forms.HiddenInput(),
             'message': forms.Textarea(attrs={'rows': 3, 'cols': 20}),
@@ -104,8 +104,6 @@ class FundraiserForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(FundraiserForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
 
         self.fields['name'].widget.attrs['size'] = 50
         self.fields['goal'].widget.attrs['size'] = 10
