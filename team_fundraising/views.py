@@ -202,15 +202,15 @@ def signup(request, campaign_id):
 
             # send them an email that they have successfully signed up
             send_mail(
-                fundraiser.signup_email_subject,
-                fundraiser.signup_email_opening
+                campaign.signup_email_subject,
+                campaign.signup_email_opening
                 + request.build_absolute_uri(
                     reverse(
                         'team_fundraising:fundraiser', args=[fundraiser.id]
                     )
                 )
                 + "\n\nYour username is: " + user.username
-                + fundraiser.signup_email_closing,
+                + campaign.signup_email_closing,
                 campaign.email,
                 [user.email, ],
                 auth_user=settings.EMAIL_HOST_USER,

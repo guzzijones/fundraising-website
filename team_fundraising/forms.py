@@ -96,8 +96,7 @@ class FundraiserForm(forms.ModelForm):
     class Meta:
         model = Fundraiser
         fields = ('campaign', 'name', 'goal', 
-                'photo', 'message', 'signup_email_closing',
-                'signup_email_subject', 'signup_email_opening' )
+                'photo', 'message', )
         widgets = {
             'campaign': forms.HiddenInput(),
             'message': forms.Textarea(attrs={'rows': 3, 'cols': 20}),
@@ -113,10 +112,6 @@ class FundraiserForm(forms.ModelForm):
 
         self.fields['name'].required = True
         self.fields['goal'].required = True
-        self.fields['signup_email_subject'].required = True
-        self.fields['signup_email_closing'].required = True
-        self.fields['signup_email_opening'].required = True
-
         # disable all the fields if the campaign is no longer active
         if self.instance.pk is not None:
 

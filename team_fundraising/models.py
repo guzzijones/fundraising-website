@@ -21,6 +21,9 @@ class Campaign(models.Model):
     goal = models.IntegerField(default=0)
     active = models.BooleanField(default=True)
     campaign_message = models.TextField()
+    signup_email_closing = models.TextField(blank=True)
+    signup_email_subject = models.TextField(blank=True)
+    signup_email_opening = models.TextField(blank=True)
     default_fundraiser_message = models.TextField()
     default_fundraiser_amount = models.IntegerField(default=0)
     photo = models.ImageField(upload_to='campaignphotos/', blank=True)
@@ -126,9 +129,7 @@ class Fundraiser(models.Model):
     goal = models.IntegerField(default=0, blank=True)
     photo = models.ImageField(upload_to='photos/', blank=True)
     message = models.TextField(blank=True)
-    signup_email_closing = models.TextField(blank=True)
-    signup_email_subject = models.TextField(blank=True)
-    signup_email_opening = models.TextField(blank=True)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
