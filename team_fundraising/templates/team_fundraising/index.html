@@ -62,6 +62,9 @@
       <div>
       <!-- Search form --></form>
       <form class="form-inline">
+	      <input data-search-active class="form-control form-control-md ml-3 full-width"
+			type="checkbox" id="active" name="Active" value="active">
+	      <label class=" ml-3 full-width" for="active"> Active Fundraiser</label><br>
               <input id="search" class="form-control form-control-md ml-3 full-width"
                 type="text" placeholder="Search for a fundraiser" data-search />
       </form>
@@ -70,7 +73,7 @@
     <div class="d-flex flex-wrap justify-content-around">
 
           {% for fundraiser in fundraisers %}
-              <div class="card mt-3 mr-1" style="width: 160px;" data-filter-item data-filter-name="{{ fundraiser.name|lower }}">
+	  <div class="card mt-3 mr-1" style="width: 160px;" data-filter-item data-filter-active="{{fundraiser.active}}"  data-filter-name="{{ fundraiser.name|lower }}">
                 {% if fundraiser.photo %}
                   <img class="card-img-top circle-image-small" src="{{ fundraiser.photo.url }}" alt="Card image cap" width="140" height="140">
                 {% else %}
@@ -103,17 +106,47 @@
 	4)	Add [data-filter-name="SEARCH TERM"] to the filter-items
 
 */
+$(document).ready(function(){
+	$('[data-search-active]').prop('checked', true)
+	var filterItems = $('[data-filter-item]');
+	filterItems.addClass('hidden')
+	$('[data-filter-item][data-filter-active="True"]').removeClass('hidden');
+   	
+})
+$('[data-search-active]').click( function() {
+	var searchVal = this.checked;
+	if (searchVal == true ){
+		searchVal="True"
+        } else {
+		searchVal="False"
+	}
+	var filterItems = $('[data-filter-item]');
+	filterItems.addClass('hidden')
+	$('[data-filter-item][data-filter-active="' + searchVal+'"]').removeClass('hidden');
+   	$('[data-search]').val('')
+	
 
+});
 $('[data-search]').on('keyup', function() {
 	var searchVal = $(this).val();
 	var filterItems = $('[data-filter-item]');
-
-	if ( searchVal != '' ) {
-		filterItems.addClass('hidden');
-		$('[data-filter-item][data-filter-name*="' + searchVal.toLowerCase() + '"]').removeClass('hidden');
-	} else {
-		filterItems.removeClass('hidden');
-	}
+	if ( searchVal != "" ) {
+		filterItems.addClass('hidden')
+		var filterMatch = $('[data-filter-item][data-filter-name*="' + searchVal.toLowerCase() + '"]');
+		var checkedVal = $('[data-search-active]')[0].checked;
+		if (checkedVal == true){
+			checkedVal = "True"
+		} else {
+			checkedVal = "False"
+		}
+		// now check if active matches active selection
+		filterMatch.each(function(i, obj){
+			if($(this).attr('data-filter-active') == checkedVal){
+				$(this).removeClass('hidden')
+			}
+		})
+    
+        }
 });
 </script>
 
