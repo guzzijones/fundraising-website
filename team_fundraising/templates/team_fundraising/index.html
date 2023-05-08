@@ -73,7 +73,7 @@
     <div class="d-flex flex-wrap justify-content-around">
 
           {% for fundraiser in fundraisers %}
-	  <div class="card mt-3 mr-1" style="width: 160px;" data-filter-item data-filter-active="{{fundraiser.active}}"  data-filter-name="{{ fundraiser.name|lower }}">
+	  <div class="card mt-3 mr-1 hidden" style="width: 160px;" data-filter-item data-filter-active="{{fundraiser.active}}"  data-filter-name="{{ fundraiser.name|lower }}">
                 {% if fundraiser.photo %}
                   <img class="card-img-top circle-image-small" src="{{ fundraiser.photo.url }}" alt="Card image cap" width="140" height="140">
                 {% else %}
