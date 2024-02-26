@@ -8,7 +8,7 @@
 <br/>
 <h3>Donate to {{ fundraiser.name }}'s fundraising</h3>
 <br/>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     {# show form errors at the top of the page #}
@@ -31,6 +31,10 @@
         <label for="id_amount" class="col-form-label  requiredField">
             Amount<span class="asteriskField">*</span>
         </label>
+        <div>
+            <input type="radio" class="radio" id="id_amount" name="amount" value="25">
+            <label for="25">$25</label>
+        </div>
         <div>
             <input type="radio" class="radio" id="id_amount" name="amount" value="50">
             <label for="50">$50</label>
@@ -55,7 +59,11 @@
             </div>
         </div>
     </div>
-
+    <div>
+        {{ form.business_flag|as_crispy_field }}
+    <div>
+        {{ form.business_logo|as_crispy_field }}
+    </div>
     <div>
         {{ form.name|as_crispy_field }}
     </div>

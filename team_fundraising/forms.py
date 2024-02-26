@@ -9,7 +9,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 class DonationForm(forms.Form):
     """ Form for a new Donation, which can be tied to a specific fundraiser """
-
+    business_flag = forms.BooleanField(required=False)
+    business_logo = forms.ImageField(required=False)
     name = forms.CharField()
     amount = forms.CharField()
     other_amount = forms.CharField(required=False)

@@ -194,6 +194,8 @@ class Donation(models.Model):
         Fundraiser, blank=True, null=True,
         on_delete=models.CASCADE
     )
+    business_flag = models.BooleanField(default=False)
+    business_logo = models.ImageField(upload_to='donationphotos/', blank=True)
     name = models.CharField(max_length=50)
     amount = models.FloatField(default=0)
     anonymous = models.BooleanField(default=False)

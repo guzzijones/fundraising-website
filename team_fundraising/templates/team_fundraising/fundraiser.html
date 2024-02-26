@@ -20,7 +20,7 @@
         {{ message }}
     </div>
 
-    {% endfor %}
+{% endfor %}
     <br/>
 
     <div class="container">
@@ -31,7 +31,7 @@
                 {% else %}
                     <img  src="{% static "nophoto.png" %}" alt="Card image cap" class="campaignimg circle-image-campaign">
                 {% endif %}
-    		</br>
+      </br>
 
                 <h2 class="campaign-title">{{ fundraiser.name }}</h2>
             </div>
@@ -71,24 +71,49 @@
                 {% endif %}
             </div>
             <div class="col-lg-6">
-                <h4>Recent Donations</h4>
-                {{ fundraiser.Donation }}
+                <h4>Business Donations</h4>
+                    {% for donation in business_donations %}
+                      <div class="row">
+                      {% if donation.business_flag %}
+                        {% if  donation.anonymous %}
+                          <div class="col-sm-12 p-1">
+                            Anonymous
+                          </div>
+                        {% else %}
+                            <div class="col-sm-4 p-1">
+                          {% if donation.business_logo%}
+                            <img src="{{ donation.business_logo.url }}" class="donationimg"  >
+                          {% endif %}
+                            </div>
+                          <div class="col-sm-6 p-1 businessfont">
+                          {{ donation.name }}
+                          </div>
+                          <div class="col-sm-2 p-1">
+                             ${{ donation.amount|floatformat:"2"|intcomma }} 
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                      </div>
+                    {% endfor %}
+               <h4>Personal Donations</h4>
                 <ul>
-                    {% for donation in donations %}
+                    {% for donation in personal_donations %}
+                    {% if not donation.business_flag %}
                     <li>
-                            {% if  donation.anonymous %}
-                                Anonymous
-                            {% else %}
-                                {{ donation.name }}
-                            {% endif %}
-                            - ${{ donation.amount|floatformat:"2"|intcomma }} 
-                            {% if donation.message %}
-                            - {{ donation.message }}
-                            {% endif %}
-                        </a>
+                      {% if  donation.anonymous %}
+                          Anonymous
+                      {% else %}
+                          {{ donation.name }}
+                      {% endif %}
+                      - ${{ donation.amount|floatformat:"2"|intcomma }} 
+                      {% if donation.message %}
+                      - {{ donation.message }}
+                      {% endif %}
                     </li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
+
             </div>
         </div>
     </div>

@@ -55,6 +55,9 @@ Currently used at: [https://donations.triplecrownforheart.ca/team_fundraising/](
 
    `poetry shell`
 
+1. export settings variable
+   `export DJANGO_SETTINGS_MODULE=fundraiser.settings.dev
+
 1. Copy .env.example to .env:
 
    `cp .env.example .env`

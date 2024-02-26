@@ -6,7 +6,7 @@
             "name": "Fundraising Campaign",
             "goal": 10000,
             "campaign_message": "This is the homepage of your fundraising campaign. Here you will want to add information about: <br><ul><li>What your event is about</li><li>What you are fundraising for</li><li>Any incentives to fundraise or donate</li></ul><br>You can customize this message by going to the <a href=\"/admin\">admin</a> section and logging in with your superuser account and editing the \"Campaign\".",
-            "default_fundraiser_message": "Welcome to my fundraising page!<br><br>This is the default message that new fundraisers will see when they sign up to fundraise.<br><br>It is helpful to create a starting message for people that describes what event they are doing and what they are fundraising for. You can customize this default message by going to the <a href=\"/admin\">admin</a> section and logging in with your superuser account and editing the \"Campaign\"."
+            "default_fundraiser_message": "Welcome to my fundraising page!<br>This is the default message that new fundraisers will see when they sign up to fundraise.<br><br>It is helpful to create a starting message for people that describes what event they are doing and what they are fundraising for. You can customize this default message by going to the <a href=\"/admin\">admin</a> section and logging in with your superuser account and editing the \"Campaign\"."
         }
     },
     {

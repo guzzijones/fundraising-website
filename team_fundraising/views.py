@@ -66,13 +66,16 @@ def fundraiser_view(request, fundraiser_id):
         fundraiser.percent_raised = int(
             fundraiser.total_raised) / fundraiser.goal * 100
 
-    donations = fundraiser.donation_set.filter(
-        payment_status__in=["paid", ""]).order_by('-date')
+    business_donations = fundraiser.donation_set.filter(
+        payment_status__in=["paid", ""], business_flag=True).order_by('-amount','-date')
+    personal_donations = fundraiser.donation_set.filter(
+        payment_status__in=["paid", ""], business_flag=False).order_by('-amount','-date')
 
     context = {
         'campaign': campaign,
         'fundraiser': fundraiser,
-        'donations': donations,
+        'business_donations': business_donations,
+        'personal_donations': personal_donations,
     }
 
     return render(request, template, context)
@@ -85,13 +88,14 @@ def new_donation(request, fundraiser_id):
     campaign = Campaign.objects.filter(fundraiser=fundraiser_id).first()
     if request.method == "POST":
 
-        form = DonationForm(request.POST)
+        form = DonationForm(request.POST, request.FILES)
 
         if form.is_valid():
-
             # populate the model with form values
             donation = Donation()
             donation.fundraiser = fundraiser
+            donation.business_flag= form.cleaned_data['business_flag']
+            donation.business_logo = form.cleaned_data['business_logo']
             donation.name = form.cleaned_data['name']
             donation.amount = form.cleaned_data['amount']
             donation.email = form.cleaned_data['email']
