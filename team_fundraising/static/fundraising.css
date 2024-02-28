@@ -2,8 +2,12 @@
 .campaign-title {
     text-align:center;
 }
+.center {
+    text-align:center;
+}
 .businessfont {
     font-size: 1.5em;
+    text-align:center;
 }
 .donationimg {
     width: 150px;
