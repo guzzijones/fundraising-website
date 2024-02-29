@@ -34,9 +34,9 @@
     }
 }
 /* lg */
-@media (min-width: 1200px) {
-    .camapaignimg {
-        width: 650px;
+@media (min-width: 1500px) {
+    .campaignimg {
+        width: 550px;
     }
 }
 
