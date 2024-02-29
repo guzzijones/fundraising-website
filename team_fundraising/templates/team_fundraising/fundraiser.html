@@ -7,7 +7,6 @@
 <title>{{ fundraiser.name }}'s Fundraising Page </title>
 <meta property="og:url"         content="{{ request.build_absolute_uri }}" />
 <meta property="og:title"       content="{{ fundraiser.name|safe}}" />
-<meta property="og:description" content="{{ fundraiser.message|safe }}" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://{{ request.META.HTTP_HOST }}{% static "nophoto.png" %}" />
 
