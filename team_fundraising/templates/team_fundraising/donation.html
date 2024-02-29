@@ -1,7 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 {% block head %}
 <title>Donate to {{ fundraiser.name }}</title>
+<script src="{% static "donation.js" %}"></script>
 {% endblock head %}
+
 {% block content %}
 
 {% load crispy_forms_tags %}
@@ -59,9 +62,16 @@
             </div>
         </div>
     </div>
-    <div>
-        {{ form.business_flag|as_crispy_field }}
-    <div>
+	  <div class="form-group">
+        <div id="div_id_business_flag" class="form-check">
+            <label for="id_business_flag" class="form-check-label">
+                <input type="checkbox" name="business_flag" onclick="showhide('business_logo');"
+									class="checkboxinput form-check-input" id="id_business_flag">
+                Business Flag (50x50 image upload for advertisement on fundraiser page)
+            </label>
+        </div>
+    </div>
+    <div id="business_logo" style="display:none;">
         {{ form.business_logo|as_crispy_field }}
     </div>
     <div>
