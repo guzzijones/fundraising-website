@@ -96,6 +96,7 @@ def new_donation(request, fundraiser_id):
             donation.fundraiser = fundraiser
             donation.business_flag= form.cleaned_data['business_flag']
             donation.business_logo = form.cleaned_data['business_logo']
+            donation.website_url = form.cleaned_data['website_url']
             donation.name = form.cleaned_data['name']
             donation.amount = form.cleaned_data['amount']
             donation.email = form.cleaned_data['email']

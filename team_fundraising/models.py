@@ -196,6 +196,7 @@ class Donation(models.Model):
     )
     business_flag = models.BooleanField(default=False)
     business_logo = models.ImageField(upload_to='donationphotos/', blank=True)
+    website_url = models.URLField(blank=True, max_length=50)
     name = models.CharField(max_length=50)
     amount = models.FloatField(default=0)
     anonymous = models.BooleanField(default=False)

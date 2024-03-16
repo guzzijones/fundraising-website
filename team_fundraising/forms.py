@@ -11,6 +11,7 @@ class DonationForm(forms.Form):
     """ Form for a new Donation, which can be tied to a specific fundraiser """
     business_flag = forms.BooleanField(required=False)
     business_logo = forms.ImageField(required=False)
+    website_url = forms.URLField(required=False)
     name = forms.CharField()
     amount = forms.CharField()
     other_amount = forms.CharField(required=False)

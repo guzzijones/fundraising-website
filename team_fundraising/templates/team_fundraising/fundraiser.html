@@ -84,7 +84,11 @@
                           {% endif %}
                             </div>
                           <div class="col-sm-6 p-1 businessfont">
-                          {{ donation.name }}
+                            {% if donation.website_url %}
+                              <a href={{ donation.website_url }} >{{ donation.name }}</a>
+                            {% else %}
+                              {{ donation.name }}
+                            {% endif %}
                           </div>
                           <div class="col-sm-2 p-1 center">
                              ${{ donation.amount|floatformat:"2"|intcomma }} 

@@ -65,7 +65,7 @@
 	  <div class="form-group">
         <div id="div_id_business_flag" class="form-check">
             <label for="id_business_flag" class="form-check-label">
-                <input type="checkbox" name="business_flag" onclick="showhide('business_logo');"
+                <input type="checkbox" name="business_flag" onclick="showhide(['business_logo', 'website_url']);"
 									class="checkboxinput form-check-input" id="id_business_flag">
                 Business Flag (50x50 image upload for advertisement on fundraiser page)
             </label>
@@ -74,6 +74,10 @@
     <div id="business_logo" style="display:none;">
         {{ form.business_logo|as_crispy_field }}
     </div>
+    <div id="website_url" style="display:none;">
+        {{ form.website_url|as_crispy_field }}
+    </div>
+
     <div>
         {{ form.name|as_crispy_field }}
     </div>
