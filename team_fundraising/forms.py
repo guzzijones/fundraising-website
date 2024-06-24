@@ -16,7 +16,9 @@ class DonationForm(forms.Form):
     amount = forms.CharField()
     other_amount = forms.CharField(required=False)
     email = forms.EmailField()
-    anonymous = forms.BooleanField(required=False)
+    anonymous = forms.BooleanField(required=False,
+            label="Anonymous: (your name will be hidden on the fundraiser page)",
+            )
     tax_name = forms.CharField(label='Full Name', required=False)
     address = forms.CharField(max_length=100, required=False)
     city = forms.CharField(max_length=50, required=False)
@@ -26,6 +28,7 @@ class DonationForm(forms.Form):
     date = timezone.now()
 
     message = forms.CharField(
+            label="Message: (will be displayed with your donation)",
         widget=forms.Textarea(
             attrs={'required': False, 'rows': 3}
         ),

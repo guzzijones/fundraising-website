@@ -81,26 +81,15 @@
     <div>
         {{ form.name|as_crispy_field }}
     </div>
-    <div class="form-group">
-        <div id="div_id_anonymous" class="form-check">
-            <label for="id_anonymous" class="form-check-label">
-                <input type="checkbox" name="anonymous" class="checkboxinput form-check-input" id="id_anonymous">
-                Anonymous (your name will not appear on the site)
-            </label>
-        </div>
+     <div>
+        {{ form.anonymous|as_crispy_field }}
     </div>
+    
     <div>
         {{ form.email|as_crispy_field }}
     </div>
     <div>
-        <div id="div_id_message" class="form-group">
-                <label for="id_message" class="col-form-label ">
-                    Message (This will appear along with your donation)
-                </label>
-                <div class="">
-                        <textarea name="message" cols="40" rows="3" class="textarea form-control" id="id_message"></textarea>
-                </div>
-        </div>
+        {{ form.message |as_crispy_field }}
     </div>
     <hr>
     <div>Please fill in the following information to receive a tax receipt for donations over $20:</div>
